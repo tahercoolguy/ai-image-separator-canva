@@ -184,7 +184,7 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [prompt, setPrompt] = useState("");
-  const [numberOfLayers, setNumberOfLayers] = useState<number>(7);
+  const [numberOfLayers, setNumberOfLayers] = useState<number>(4);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
@@ -417,32 +417,32 @@ export const App = () => {
 
         const imageUrl = imageUrls[i];
         const imageResponse = await fetch(imageUrl);
-        const mimeType = imageResponse.headers.get('content-type') || 'image/jpeg';
+      const mimeType = imageResponse.headers.get('content-type') || 'image/jpeg';
 
         // Get the dimensions of the image
-        const img = new Image();
-        const getImageDimensions = new Promise<{width: number, height: number}>((resolve, reject) => {
-          img.onload = () => {
-            resolve({
-              width: img.width,
-              height: img.height
-            });
-          };
-          img.onerror = () => reject(new Error('Failed to load image'));
-        });
+      const img = new Image();
+      const getImageDimensions = new Promise<{width: number, height: number}>((resolve, reject) => {
+        img.onload = () => {
+          resolve({
+            width: img.width,
+            height: img.height
+          });
+        };
+        img.onerror = () => reject(new Error('Failed to load image'));
+      });
         img.src = imageUrl;
-        
-        const dimensions = await getImageDimensions;
+      
+      const dimensions = await getImageDimensions;
 
-        const image = await upload({
-          type: "image",
-          mimeType: mimeType as ImageMimeType,
+      const image = await upload({
+        type: "image",
+        mimeType: mimeType as ImageMimeType,
           url: imageUrl,
           thumbnailUrl: imageUrl,
-          width: dimensions.width,
-          height: dimensions.height,
-          aiDisclosure: "none",
-        });
+        width: dimensions.width,
+        height: dimensions.height,
+        aiDisclosure: "none",
+      });
 
         await image.whenUploaded();
         uploadedImages.push({
@@ -500,7 +500,7 @@ export const App = () => {
     setReviewImages([]);
     setSelectedImage([]);
     setPrompt("");
-    setNumberOfLayers(7);
+    setNumberOfLayers(4);
     setImageSource(null);
   };
 
@@ -627,8 +627,8 @@ export const App = () => {
                       defaultMessage: "Add to design",
                       description: "Button label to add a separated image layer to the design"
                     })}
-                  </Button>
-                </Rows>
+            </Button>
+          </Rows>
               ))}
             </Grid>
           </Box>
@@ -748,7 +748,7 @@ export const App = () => {
             label={
               <div style={{ padding: '8px 0 4px 2px', fontWeight: 500, fontSize: 14 }}>
                 <FormattedMessage
-                  defaultMessage="Number of Layers"
+                  defaultMessage="Number of Layers (1-7)"
                   description="Label for the number input field where users specify how many layers to separate"
                 />
               </div>
@@ -760,7 +760,15 @@ export const App = () => {
                 min={1}
                 max={7}
                 onChange={(value) => {
-                  setNumberOfLayers(value || 7);
+                  if (value === null || value === undefined) {
+                    setNumberOfLayers(4);
+                  } else if (value > 7) {
+                    setNumberOfLayers(7);
+                  } else if (value < 1) {
+                    setNumberOfLayers(1);
+                  } else {
+                    setNumberOfLayers(value);
+                  }
                 }}
               />
             )}
@@ -875,7 +883,7 @@ export const App = () => {
                     return (
                       <Text size="small" alignment="center">
                         <FormattedMessage
-                          defaultMessage="Use {used} of {total} Nano Banana Saifs AI credits"
+                          defaultMessage="Use 1 of {total} Ai Image Separator credits"
                           description="Message showing credit usage for non-paid users"
                           values={{
                             used: usedTokens,
@@ -895,12 +903,12 @@ export const App = () => {
                         description="Link text to purchase more credits for non-paid users"
                         values={{
                           link: (chunks) => (
-                            <Link
-                              href={`https://saifs.ai/canva_pricing/${userId}/14`}
-                              requestOpenExternalUrl={() => openExternalUrl(`https://saifs.ai/canva_pricing/${userId}/14`)}
-                            >
+                      <Link
+                        href={`https://saifs.ai/canva_pricing/${userId}/14`}
+                        requestOpenExternalUrl={() => openExternalUrl(`https://saifs.ai/canva_pricing/${userId}/14`)}
+                      >
                               {chunks}
-                            </Link>
+                      </Link>
                           )
                         }}
                       />
