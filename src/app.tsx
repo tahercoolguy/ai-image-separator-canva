@@ -48,7 +48,7 @@ const useTokensCheck = (userId: string | null) => {
 
   const checkUserPaymentStatus = useCallback(async (uid: string) => {
     try {
-      const response = await fetch(`https://multiplewords.com/api/account/user_settings/${uid}`);
+      const response = await fetch(`https://multiplewords.in/api/account/user_settings/${uid}`);
       const data = await response.json();
       if (data.status === 1 && data.user_info && data.user_info.length > 0) {
         const isPaid = data.user_info[0].is_user_paid;
@@ -78,7 +78,7 @@ const useTokensCheck = (userId: string | null) => {
         return 999;
       } else {
         // If not paid, check tokens as usual
-        const response = await fetch(`https://multiplewords.com/api/tokens_left/get/${uid}`);
+        const response = await fetch(`https://multiplewords.in/api/tokens_left/get/${uid}`);
         const data = await response.json();
         if (data.status === 1) {
           const tokenCount = data.credits.videos;
@@ -212,7 +212,7 @@ export const App = () => {
       
       if (token) {
         try {
-          const userResponse = await fetch('https://multiplewords.com/oauth/check-canva-token', {
+          const userResponse = await fetch('https://multiplewords.in/oauth/check-canva-token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -243,7 +243,7 @@ export const App = () => {
       
       if (token) {
         try {
-          const userResponse = await fetch('https://multiplewords.com/oauth/check-canva-token', {
+          const userResponse = await fetch('https://multiplewords.in/oauth/check-canva-token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -384,7 +384,7 @@ export const App = () => {
       
       setProgress(30);
       
-      const apiResponse = await fetch('https://shorts.multiplewords.com/mwvideos/api/image_layers_separator', {
+      const apiResponse = await fetch('https://shorts.multiplewords.in/mwvideos/api/image_layers_separator', {
         method: 'POST',
         body: formData,
         signal: abortControllerRef.current.signal
