@@ -48,7 +48,7 @@ const useTokensCheck = (userId: string | null) => {
 
   const checkUserPaymentStatus = useCallback(async (uid: string) => {
     try {
-      const response = await fetch(`https://multiplewords.com/api/account/user_settings/${uid}`);
+      const response = await fetch(`https://multiplewords.in/api/account/user_settings/${uid}`);
       const data = await response.json();
       if (data.status === 1 && data.user_info && data.user_info.length > 0) {
         const isPaid = data.user_info[0].is_user_paid;
@@ -78,7 +78,7 @@ const useTokensCheck = (userId: string | null) => {
         return 999;
       } else {
         // If not paid, check tokens as usual
-        const response = await fetch(`https://multiplewords.com/api/tokens_left/get/${uid}`);
+        const response = await fetch(`https://multiplewords.in/api/tokens_left/get/${uid}`);
         const data = await response.json();
         if (data.status === 1) {
           const tokenCount = data.credits.videos;
@@ -120,22 +120,9 @@ const useTokensCheck = (userId: string | null) => {
 
 // Loading state component that displays a progress bar and a cancel button
 const LoadingState = ({ onCancel, progress, intl }: { onCancel: () => void; progress: number; intl: ReturnType<typeof useIntl> }) => (
-  <div style={{
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'var(--color-background)',
-    zIndex: 1000
-  }}>
-    <div style={{ width: '100%', maxWidth: '400px' }}>
-      <Box padding="2u">
-        <Rows spacing="2u" align="center">
+  <div className={styles.centeredScrollContainer}>
+    <div style={{ width: '100%' }}>
+      <Rows spacing="2u" align="center">
           <Title size="small" alignment="center">
             {intl.formatMessage({
               defaultMessage: "AI Image Separator",
@@ -173,7 +160,6 @@ const LoadingState = ({ onCancel, progress, intl }: { onCancel: () => void; prog
             </Button>
           </Box>
         </Rows>
-      </Box>
     </div>
   </div>
 );
@@ -212,7 +198,7 @@ export const App = () => {
       
       if (token) {
         try {
-          const userResponse = await fetch('https://multiplewords.com/oauth/check-canva-token', {
+          const userResponse = await fetch('https://multiplewords.in/oauth/check-canva-token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -243,7 +229,7 @@ export const App = () => {
       
       if (token) {
         try {
-          const userResponse = await fetch('https://multiplewords.com/oauth/check-canva-token', {
+          const userResponse = await fetch('https://multiplewords.in/oauth/check-canva-token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -384,7 +370,7 @@ export const App = () => {
       
       setProgress(30);
       
-      const apiResponse = await fetch('https://shorts.multiplewords.com/mwvideos/api/image_layers_separator', {
+      const apiResponse = await fetch('https://shorts.multiplewords.in/mwvideos/api/image_layers_separator', {
         method: 'POST',
         body: formData,
         signal: abortControllerRef.current.signal
@@ -547,22 +533,24 @@ export const App = () => {
   };
 
   return (
-    <div className={styles.scrollContainer}>
+    <div
+      className={styles.scrollContainer}
+      style={{
+        // Hard guarantee for Canva Spacing review: exact 16px iframe margins
+        paddingTop: 16,
+        paddingRight: 16,
+        paddingBottom: 16,
+        paddingLeft: 16,
+        boxSizing: "border-box",
+        width: "100%",
+        maxWidth: "100%",
+        height: "100%",
+        margin: 0,
+      }}
+    >
       {isTokenCheckLoading ? (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '24px',
-          zIndex: 1000
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Rows spacing="3u" align="center">
+          <Box display="flex" alignItems="center" justifyContent="center">
             <LoadingIndicator size="medium" />
             <Text size="large" variant="bold">
               <FormattedMessage
@@ -570,39 +558,37 @@ export const App = () => {
                 description="Message shown while checking if user has purchased credits"
               />
             </Text>
-          </div>
-          <div style={{ width: '90%', maxWidth: '400px' }}>
-            <Button 
-              variant="secondary" 
-              onClick={() => setIsTokenCheckLoading(false)}
-              stretch
-            >
-              {intl.formatMessage({
-                defaultMessage: "Go back",
-                description: "Button label to return to the previous screen"
-              })}
-            </Button>
-          </div>
-        </div>
+          </Box>
+          <Button 
+            variant="secondary" 
+            onClick={() => setIsTokenCheckLoading(false)}
+            stretch
+          >
+            {intl.formatMessage({
+              defaultMessage: "Go back",
+              description: "Button label to return to the previous screen"
+            })}
+          </Button>
+        </Rows>
       ) : authError ? (
-        <div style={{ color: 'red', padding: '16px', textAlign: 'center' }}>
-          <Text>{authError}</Text>
-          <Button variant="primary" onClick={authorize}>
+        <Rows spacing="2u">
+          <Alert tone="critical">{authError}</Alert>
+          <Button variant="primary" onClick={authorize} stretch>
             {intl.formatMessage({
               defaultMessage: "Retry Login",
               description: "Button label to retry authentication after an error"
             })}
           </Button>
-        </div>
+        </Rows>
       ) : authLoading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '32px' }}>
+        <Box display="flex" justifyContent="center">
           <LoadingIndicator />
-        </div>
+        </Box>
       ) : isLoading ? (
         <LoadingState onCancel={handleCancel} progress={progress} intl={intl} />
       ) : reviewImages.length > 0 ? (
         <Rows spacing="2u">
-          <Box padding="1u">
+          <Box padding="0" width="full">
             <Grid columns={2} spacing="1.5u">
               {reviewImages.map((imageData, index) => (
                 <Rows key={index} spacing="1u">
@@ -676,7 +662,7 @@ export const App = () => {
             )}
             {selectedImage.length > 0 && (
               <>
-                <div style={{ marginBottom: 8, marginLeft: 2, marginTop: 8 }}>
+                <div style={{ marginBottom: 8, marginTop: 8 }}>
                   <Text size="medium" variant="bold">
                     {imageSource === "selection" ? (
                       <FormattedMessage
@@ -721,7 +707,7 @@ export const App = () => {
                   />
                 </div>
                 {imageSource === "upload" && (
-                  <div style={{ marginTop: 8, marginLeft: 2 }}>
+                  <div style={{ marginTop: 8 }}>
                     <FileInputItem
                       label={(() => {
                         try {
@@ -746,7 +732,7 @@ export const App = () => {
           {/* Number of Layers Input Section */}
           <FormField
             label={
-              <div style={{ padding: '8px 0 4px 2px', fontWeight: 500, fontSize: 14 }}>
+              <div style={{ padding: '8px 0 4px 0', fontWeight: 500, fontSize: 14 }}>
                 <FormattedMessage
                   defaultMessage="Number of Layers (1-7)"
                   description="Label for the number input field where users specify how many layers to separate"
@@ -777,7 +763,7 @@ export const App = () => {
           {/* Prompt Input Section */}
           <FormField
             label={
-              <div style={{ padding: '8px 0 4px 2px', fontWeight: 500, fontSize: 14 }}>
+              <div style={{ padding: '8px 0 4px 0', fontWeight: 500, fontSize: 14 }}>
                 <FormattedMessage
                   defaultMessage="Prompt (Optional)"
                   description="Label for the optional prompt input field"

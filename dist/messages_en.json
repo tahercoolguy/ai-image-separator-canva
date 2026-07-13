@@ -1,0 +1,134 @@
+{
+  "+CGAjt": {
+    "defaultMessage": "Checking your purchase...",
+    "description": "Message shown while checking if user has purchased credits"
+  },
+  "0c0Z73": {
+    "defaultMessage": "Number of layers must be between 1 and 7",
+    "description": "Alert message shown when user enters an invalid number of layers"
+  },
+  "2pFTX7": {
+    "defaultMessage": "Sign in to separate layers",
+    "description": "Button label prompting user to sign in before using the app"
+  },
+  "3Ck02M": {
+    "defaultMessage": "Use 1 of {total} Ai Image Separator credits",
+    "description": "Message showing credit usage for non-paid users"
+  },
+  "4PNbqw": {
+    "defaultMessage": "Uploaded image",
+    "description": "Label shown above an image uploaded by the user"
+  },
+  "4larb0": {
+    "defaultMessage": "Separated layer {number}",
+    "description": "Alt text for separated image layer previews"
+  },
+  "5uL16i": {
+    "defaultMessage": "Need more? <link>Get more credits</link>",
+    "description": "Link text to purchase more credits for non-paid users"
+  },
+  "7OOE8r": {
+    "defaultMessage": "Selected image",
+    "description": "Label shown above an image selected from the Canva design"
+  },
+  "9j14Mk": {
+    "defaultMessage": "Leave empty for automatic separation or describe how you want to separate the layers",
+    "description": "Placeholder text for the optional prompt input field"
+  },
+  "9n2Ztp": {
+    "defaultMessage": "Separate Image Layers",
+    "description": "Button label to start the image layer separation process"
+  },
+  "B0Bm4G": {
+    "defaultMessage": "Need more? Get more credits",
+    "description": "Link text to purchase more credits"
+  },
+  "B6E7aE": {
+    "defaultMessage": "AI Image Separator",
+    "description": "The name of the app displayed in the loading screen title"
+  },
+  "B7Yg78": {
+    "defaultMessage": "Add to design",
+    "description": "Button label to add a separated image layer to the design"
+  },
+  "FvuUQm": {
+    "defaultMessage": "Choose file",
+    "description": "Accessibility label for the file input button"
+  },
+  "GFvNEK": {
+    "defaultMessage": "<b>You don't have enough credits</b> You need at least 1 credit to separate image layers.",
+    "description": "Warning message shown when user doesn't have enough credits"
+  },
+  "Gh+k+W": {
+    "defaultMessage": "Please wait, this may take a while",
+    "description": "Message shown below the progress bar to inform users that processing may take time"
+  },
+  "IgFpU0": {
+    "defaultMessage": "Failed to generate image layers. Please try again.",
+    "description": "Error message shown when image layer separation fails"
+  },
+  "J12OFf": {
+    "defaultMessage": "Start over",
+    "description": "Button label to reset the app and start a new image separation"
+  },
+  "OPK5MN": {
+    "defaultMessage": "Supported formats: {formats}, and other browser-supported formats",
+    "description": "Text showing which image formats are supported"
+  },
+  "PnfnVh": {
+    "defaultMessage": "Please select an image",
+    "description": "Alert message shown when user tries to generate layers without selecting an image"
+  },
+  "VDSqc9": {
+    "defaultMessage": "Layer {number}",
+    "description": "Accessibility label for image layer cards"
+  },
+  "Vj29Um": {
+    "defaultMessage": "Retry Login",
+    "description": "Button label to retry authentication after an error"
+  },
+  "W8ad2T": {
+    "defaultMessage": "Processing your image...",
+    "description": "Loading message shown while the app is processing the user's image"
+  },
+  "Z4fAN/": {
+    "defaultMessage": "Cancel",
+    "description": "Button label to cancel the image processing operation"
+  },
+  "ZHsS5J": {
+    "defaultMessage": "Upload or select an image in your design to edit",
+    "description": "Label for the file input field where users upload or select an image"
+  },
+  "aAd6Sj": {
+    "defaultMessage": "You have <b>unlimited</b> AI Image Separator credits",
+    "description": "Message shown to paid users indicating they have unlimited credits"
+  },
+  "dl6//j": {
+    "defaultMessage": "Number of Layers (1-7)",
+    "description": "Label for the number input field where users specify how many layers to separate"
+  },
+  "fdpz2l": {
+    "defaultMessage": "You don't have enough credits to separate image layers. Please get more credits to continue.",
+    "description": "Alert message shown when user doesn't have enough credits to perform the operation"
+  },
+  "nfzP0g": {
+    "defaultMessage": "Separated image layer",
+    "description": "Alt text for separated image layers added to the design"
+  },
+  "sSX0X5": {
+    "defaultMessage": "Selected preview",
+    "description": "Alt text for the selected image preview"
+  },
+  "tC4fr7": {
+    "defaultMessage": "Go back",
+    "description": "Button label to return to the previous screen"
+  },
+  "tr1Ks9": {
+    "defaultMessage": "Signing in...",
+    "description": "Button label shown while authentication is in progress"
+  },
+  "vAt/O5": {
+    "defaultMessage": "Prompt (Optional)",
+    "description": "Label for the optional prompt input field"
+  }
+}
